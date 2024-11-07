@@ -5,17 +5,17 @@ export interface TransformerStarterOptions {
 
 }
 
-export default function transformerAlias(options?: TransformerStarterOptions): SourceCodeTransformer {
+export default function transformStarter(options?: TransformerStarterOptions): SourceCodeTransformer {
   return {
     name: 'unocss-transformer-starter',
     enforce: 'pre',
     async transform(code, _, { uno }) {
-      await transformStarter(code, uno, options)
+      await transformStarterMain(code, uno, options)
     },
   }
 }
 
-export async function transformStarter(
+export async function transformStarterMain(
   code: MagicString,
   uno: UnoGenerator,
   // eslint-disable-next-line unused-imports/no-unused-vars

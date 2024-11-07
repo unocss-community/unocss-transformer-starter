@@ -2,7 +2,7 @@ import type { UnoGenerator } from 'unocss'
 import MagicString from 'magic-string'
 import { createGenerator, presetUno } from 'unocss'
 import { expect, it } from 'vitest'
-import { transformStarter } from '../src'
+import { transformStarterMain } from '../src'
 
 const uno = createGenerator({
   presets: [presetUno()],
@@ -11,7 +11,7 @@ const uno = createGenerator({
 function createTransformer() {
   return async (code: string, _uno: UnoGenerator = uno) => {
     const s = new MagicString(code)
-    await transformStarter(s, _uno, {})
+    await transformStarterMain(s, _uno, {})
     return s.toString()
   }
 }
