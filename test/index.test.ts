@@ -1,14 +1,14 @@
 import type { UnoGenerator } from 'unocss'
 import MagicString from 'magic-string'
-import { createGenerator, presetUno } from 'unocss'
+import { createGenerator, presetWind3 } from 'unocss'
 import { expect, it } from 'vitest'
 import { transformStarterMain } from '../src'
 
-const uno = createGenerator({
-  presets: [presetUno()],
-})
+async function createTransformer() {
+  const uno = await createGenerator({
+    presets: [presetWind3()],
+  })
 
-function createTransformer() {
   return async (code: string, _uno: UnoGenerator = uno) => {
     const s = new MagicString(code)
     await transformStarterMain(s, _uno, {})
@@ -17,7 +17,7 @@ function createTransformer() {
 }
 
 it('basic', async () => {
-  const transform = createTransformer()
+  const transform = await createTransformer()
   const code = `hello UnoCSS`
 
   expect(await transform(code)).toMatchInlineSnapshot(`"hello UnoCSS is awesome"`)
